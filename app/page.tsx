@@ -1,11 +1,15 @@
-
+import Hero from "./component/Hero";
+import Body from "./component/Body";
+import Footer from "./component/Footer";
 
 const page = () => {
   return (
     <>
-      <div>page</div>
+      <Hero />
+      <Body />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;
