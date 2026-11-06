@@ -1,4 +1,44 @@
+"use client";
+import { useState } from "react";
+
 export default function SummarizePage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [summary, setSummary] = useState<{
+    website_name: string;
+    html_content: string;
+  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const handleSummarize = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/summary", {
+        method: "POST",
+        body: new FormData(e.currentTarget),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSummary(data.masterSummary);
+        setSuccess(data.message);
+      } else {
+        setError(
+          typeof data === "string"
+            ? data
+            : (data.message ??
+                "An error occurred while summarizing the webpage."),
+        );
+      }
+    } catch (e) {
+      setError("Internal server error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-[calc(100svh-4rem)] bg-background px-6 py-12 text-[#17212b] sm:px-10 lg:px-16">
       <section className="mx-auto w-full max-w-6xl">
@@ -27,7 +67,12 @@ export default function SummarizePage() {
               Add a webpage URL to get a clear overview of its main ideas.
             </p>
 
-            <form action="/summarize" method="get" className="mt-9">
+            <form
+              action="/summarize"
+              method="get"
+              className="mt-9"
+              onSubmit={handleSummarize}
+            >
               <label
                 htmlFor="webpage-url"
                 className="mb-2 block text-sm font-semibold text-gray-800"
@@ -47,12 +92,19 @@ export default function SummarizePage() {
                   type="submit"
                   className="min-h-12 bg-[#2563eb] px-5 text-base font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
                 >
-                  Summarize
+                  {isLoading ? "Summarizing..." : "Summarize"}
                 </button>
               </div>
               <p className="mt-3 text-xs text-gray-500">
                 Enter a full URL, including https://
               </p>
+              {error ? (
+                <p className="mt-2 text-sm text-red-600">{error}</p>
+              ) : (
+                success !== null && (
+                  <p className="mt-2 text-sm text-green-600">{success}</p>
+                )
+              )}
             </form>
           </div>
 
@@ -66,14 +118,18 @@ export default function SummarizePage() {
               </p>
               <span className="text-xs text-gray-400">WAITING FOR URL</span>
             </div>
-            <div className="flex min-h-48 flex-col justify-center">
-              <p className="text-lg font-semibold text-gray-800">
-                Your summary will appear here
-              </p>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-gray-500">
-                Add a webpage URL to get started.
-              </p>
-            </div>
+            {summary ? (
+              <div dangerouslySetInnerHTML={{ __html: summary.html_content }} />
+            ) : (
+              <div className="flex min-h-48 flex-col justify-center">
+                <p className="text-lg font-semibold text-gray-800">
+                  Your summary will appear here
+                </p>
+                <p className="mt-2 max-w-sm text-sm leading-6 text-gray-500">
+                  Add a webpage URL to get started.
+                </p>
+              </div>
+            )}
           </aside>
         </div>
       </section>
