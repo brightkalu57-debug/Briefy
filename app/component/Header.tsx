@@ -14,7 +14,6 @@ const Header = () => {
         <ul className="flex items-center gap-4 font-[700] text-[18px]">
           <Link href="/">Home</Link>
           <Link href="/summarize">Summarize</Link>
-          <Link href="/history">History</Link>
         </ul>
       </section>
     </nav>
