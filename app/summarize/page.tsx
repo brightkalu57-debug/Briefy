@@ -46,6 +46,43 @@ export default function SummarizePage() {
       let bufferObject = "";
       let streamCompleted = false;
 
+      const progressSpeedTracker = (
+        metric: number,
+        metric2: number,
+        regularPace: number | undefined,
+        fastPace: number,
+      ) => {
+        setPhase(
+          `${data?.phase} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
+        );
+        if (metric > progressPercentage) {
+          interval = setInterval(() => {
+            if (metric2 === progressPercentage) {
+              clearInterval(interval!);
+              if (progressPercentage === 100) {
+                setPhase(data?.phase || "");
+                setSummary(data?.masterSummary ?? null);
+                setIsLoading(false);
+              }
+              return;
+            }
+
+            progressPercentage += 1;
+            setProgressPercent(progressPercentage);
+          }, fastPace);
+        } else if (progressPercentage !== 100 && regularPace) {
+          interval = setInterval(() => {
+            if (metric2 === progressPercentage) {
+              clearInterval(interval!);
+              return;
+            }
+
+            progressPercentage += 1;
+            setProgressPercent(progressPercentage);
+          }, regularPace);
+        }
+      };
+
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
@@ -63,6 +100,9 @@ export default function SummarizePage() {
           if (data?.status && Number(data.status) >= 400) {
             throw new Error(data.message ?? "Summary failed.");
           }
+          const pagesPercent = Math.round(
+            ((data?.gatheredPages || 0) / (data?.totalPages || 6)) * 40,
+          );
 
           if (interval) clearInterval(interval);
 
@@ -70,85 +110,29 @@ export default function SummarizePage() {
             data?.phase === "Gathering Pages" ||
             data?.phase === "Analizing Link"
           ) {
-            setPhase(
-              `${data?.phase} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
-            );
-            if (
+            progressSpeedTracker(
+              pagesPercent,
               Math.round(
-                ((data?.gatheredPages || 0) / (data?.totalPages || 6)) * 40,
-              ) > progressPercentage
-            ) {
-              interval = setInterval(() => {
-                if (
-                  Math.round(
-                    (((data?.gatheredPages || 0) + 1) /
-                      (data?.totalPages || 6)) *
-                      40,
-                  ) === progressPercentage
-                ) {
-                  clearInterval(interval!);
-                  return;
-                }
-
-                progressPercentage += 1;
-                setProgressPercent(progressPercentage);
-              }, 400);
-            } else {
-              interval = setInterval(() => {
-                if (
-                  Math.round(
-                    (((data?.gatheredPages || 0) + 1) /
-                      (data?.totalPages || 6)) *
-                      40,
-                  ) === progressPercentage
-                ) {
-                  clearInterval(interval!);
-                  return;
-                }
-
-                progressPercentage += 1;
-                setProgressPercent(progressPercentage);
-              }, 2200);
-            }
+                (((data?.gatheredPages || 0) +
+                  ((data?.gatheredPages || 0) !== (data?.totalPages || 6)
+                    ? 1
+                    : 0)) /
+                  (data?.totalPages || 6)) *
+                  40,
+              ),
+              2200,
+              400,
+            );
           } else if (data?.phase === "Summarizing Pages") {
-            setPhase(data?.phase);
-            if (40 > progressPercentage) {
-              interval = setInterval(() => {
-                progressPercentage += 1;
-                setProgressPercent(progressPercentage);
-                if (96 === progressPercentage) {
-                  clearInterval(interval!);
-                  return;
-                }
-              }, 1500);
-            } else {
-              interval = setInterval(() => {
-                if (progressPercentage === 96) {
-                  clearInterval(interval!);
-                  return;
-                }
-
-                progressPercentage += 1;
-                setProgressPercent(progressPercentage);
-              }, 1500);
-            }
+            progressSpeedTracker(
+              pagesPercent,
+              95,
+              1500,
+              (data?.gatheredPages || 0) > 3 ? 1500 : 400,
+            );
           } else if (data?.phase === "Summary Completed") {
-            setPhase(data?.phase);
-            if (100 > progressPercentage) {
-              interval = setInterval(() => {
-                if (100 === progressPercentage) {
-                  clearInterval(interval!);
-                  setPhase(data?.phase || "");
-                  setSummary(data?.masterSummary ?? null);
-                  setIsLoading(false);
-                  streamCompleted = true;
-                  return;
-                }
-
-                progressPercentage += 1;
-                setProgressPercent(progressPercentage);
-              }, 400);
-            }
+            streamCompleted = true;
+            progressSpeedTracker(100, 100, undefined, 400);
           }
         }
       }
