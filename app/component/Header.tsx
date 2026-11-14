@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <nav
       className=" bg-white py-1 px-10  flex items-center width-[100%]
-    justify-between border-b border-gray-400 max-md:py-3.5 "
+    justify-between border-b border-gray-400 max-md:py-3.5  max-md:px-6"
     >
       <section>
         <Link
@@ -20,20 +20,20 @@ const Header = () => {
             alt="Logo"
             className="h-14 w-auto max-md:hidden"
           />
-          <p className="text-indigo-800">Briefy</p>
+          <p className="text-indigo-800 text-[15px]">Briefy</p>
         </Link>
       </section>
       <section>
         <ul className="flex items-center gap-4 font-[700] text-[18px] text-gray-600 ">
           <Link
             href="/"
-            className={`${pathName === "/" && "text-purple-600"} hover:text-purple-800`}
+            className={`${pathName === "/" && "text-purple-800"} hover:text-purple-800 text-[15px]`}
           >
             Home
           </Link>
           <Link
             href="/summarize"
-            className={`${pathName === "/summarize" && "text-purple-600"} hover:text-purple-800`}
+            className={`${pathName === "/summarize" && "text-indigo-800"} hover:text-purple-800 text-[15px]`}
           >
             Summarize
           </Link>
