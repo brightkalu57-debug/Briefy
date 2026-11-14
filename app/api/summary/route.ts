@@ -1,7 +1,8 @@
 import "dotenv/config";
 import DOMPurify from "isomorphic-dompurify";
 import { NextResponse, NextRequest } from "next/server";
-import puppeteer, { type Browser, type Page } from "puppeteer";
+import puppeteer, { type Browser, type Page } from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 import sharp from "sharp";
 import * as z from "zod";
 import dns from "node:dns/promises";
@@ -11,6 +12,8 @@ import { GoogleGenAI } from "@google/genai";
 const genAI = new GoogleGenAI();
 
 const encoder = new TextEncoder();
+
+const isVercel = !!process.env.VERCEL;
 
 const summaryJsonSchema = {
   type: "object" as const,
@@ -121,7 +124,18 @@ export async function POST(req: NextRequest) {
             return;
           }
 
-          browser = await puppeteer.launch({ headless: true });
+          browser = await puppeteer.launch(
+            isVercel
+              ? {
+                  args: chromium.args,
+                  executablePath: await chromium.executablePath(),
+                  headless: true,
+                }
+              : {
+                  headless: true,
+                  channel: "chrome",
+                },
+          );
 
           const page = await browser.newPage();
 
