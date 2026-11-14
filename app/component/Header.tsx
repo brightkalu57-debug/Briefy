@@ -24,7 +24,7 @@ const Header = () => {
         </Link>
       </section>
       <section>
-        <ul className="flex items-center font-[700] gap-4 max-md:text-[18px] text-gray-600 ">
+        <ul className="flex items-center font-[700] gap-4  text-gray-600 ">
           <Link
             href="/"
             className={`${pathName === "/" && "text-indigo-800"} hover:text-purple-800 gap-4 max-md:text-[16px]`}
