@@ -255,10 +255,12 @@ export default function SummarizePage() {
                   shadow-2xl shadow-black/80 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <div className="flex justify-between items-center mb-3 text-xs font-bold tracking-wider">
-              <span className="text-blue-400/70 uppercase">{phase}...</span>
+              <span className="text-blue-400 uppercase font-bold">
+                {phase}...
+              </span>
               <span
                 id="percent-text"
-                className="text-blue-400/70 drop-shadow-[0_0_8px_rgba(0,210,255,0.4)] text-sm transition-all duration-300"
+                className="text-blue-400 drop-shadow-[0_0_8px_rgba(0,210,255,0.4)] text-sm transition-all duration-300"
               >
                 {progressPercent}%
               </span>

@@ -20,20 +20,20 @@ const Header = () => {
             alt="Logo"
             className="h-14 w-auto max-md:hidden"
           />
-          <p className="text-indigo-800 text-[15px]">Briefy</p>
+          <p className="text-indigo-800 text-[20px] font-bold">Briefy</p>
         </Link>
       </section>
       <section>
-        <ul className="flex items-center gap-4 font-[700] text-[18px] text-gray-600 ">
+        <ul className="flex items-center font-[700] gap-4 max-md:text-[18px] text-gray-600 ">
           <Link
             href="/"
-            className={`${pathName === "/" && "text-purple-800"} hover:text-purple-800 text-[15px]`}
+            className={`${pathName === "/" && "text-indigo-800"} hover:text-purple-800 gap-4 max-md:text-[16px]`}
           >
             Home
           </Link>
           <Link
             href="/summarize"
-            className={`${pathName === "/summarize" && "text-indigo-800"} hover:text-purple-800 text-[15px]`}
+            className={`${pathName === "/summarize" && "text-indigo-800"} hover:text-purple-800 gap-4 max-md:text-[16px]`}
           >
             Summarize
           </Link>
