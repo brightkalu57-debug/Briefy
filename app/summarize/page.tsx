@@ -207,7 +207,9 @@ export default function SummarizePage() {
                 />
                 <button
                   type="submit"
-                  className="min-h-12 bg-[#2563eb] px-5 text-base font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
+                  className="min-h-12 bg-indigo-500 px-5 text-base font-semibold text-white 
+                  transition-colors hover:bg-purple-700 focus-visible:outline-2 
+                  focus-visible:outline-offset-4 focus-visible:outline-purple-700"
                 >
                   {isLoading ? "Summarizing..." : "Summarize"}
                 </button>
@@ -249,7 +251,7 @@ export default function SummarizePage() {
         </div>
         {isLoading && (
           <div
-            className="w-[500px] h-[150px] bg-white p-6 rounded-xl border border-white/5 flex flex-col justify-center
+            className="w-[300px] sm:w-[450px] lg:w-[500px] h-[150px] bg-white p-6 rounded-xl border border-white/5 flex flex-col justify-center
                   shadow-2xl shadow-black/80 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <div className="flex justify-between items-center mb-3 text-xs font-bold tracking-wider">

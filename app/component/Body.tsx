@@ -22,7 +22,7 @@ export default function Body() {
               A clearer starting point for every webpage.
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-7 text-gray-600 md:justify-self-end">
+          <p className="max-w-xl text-base leading-7 text-blue-500 md:justify-self-end">
             Get oriented with a short overview, then decide which details are
             worth a closer read.
           </p>
@@ -30,7 +30,7 @@ export default function Body() {
 
         <ol className="grid border-y border-[#dbe3ee] md:grid-cols-3">
           <li className="border-b border-[#dbe3ee] py-7 md:border-b-0 md:border-r md:pr-8 md:py-8">
-            <p className="mb-6 text-sm font-semibold tabular-nums text-blue-700">
+            <p className="mb-6 text-sm font-semibold tabular-nums text-indigo-700">
               01
             </p>
             <h3 className="text-lg font-semibold">Choose a webpage</h3>
@@ -40,7 +40,7 @@ export default function Body() {
             </p>
           </li>
           <li className="border-b border-[#dbe3ee] py-7 md:border-b-0 md:border-r md:px-8 md:py-8">
-            <p className="mb-6 text-sm font-semibold tabular-nums text-blue-700">
+            <p className="mb-6 text-sm font-semibold tabular-nums text-indigo-700">
               02
             </p>
             <h3 className="text-lg font-semibold">Get the main ideas</h3>
@@ -49,7 +49,7 @@ export default function Body() {
             </p>
           </li>
           <li className="py-7 md:pl-8 md:py-8">
-            <p className="mb-6 text-sm font-semibold tabular-nums text-blue-700">
+            <p className="mb-6 text-sm font-semibold tabular-nums text-indigo-700">
               03
             </p>
             <h3 className="text-lg font-semibold">Decide what to read</h3>

@@ -3,7 +3,7 @@ export default function Hero() {
     <main className="relative isolate flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-background px-6 py-12 text-[#17212b] sm:px-10 lg:px-16">
       <div
         aria-hidden="true"
-        className="absolute inset-y-0 right-0 hidden w-[43%] bg-blue-100/70 lg:block"
+        className="absolute inset-y-0 right-0 hidden w-[43%] bg-indigo-400/50 lg:block"
       />
       <section className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div className="max-w-xl">
@@ -26,7 +26,8 @@ export default function Hero() {
           </p>
           <a
             href="#sample-brief"
-            className="mt-8 inline-flex min-h-12 items-center justify-center bg-[#2563eb] px-5 text-base font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
+            className="mt-8 inline-flex min-h-12 items-center justify-center bg-purple-500 px-5 text-base font-semibold 
+            text-white transition-colors hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
           >
             Start Now
           </a>
@@ -74,7 +75,7 @@ export default function Hero() {
             </section>
 
             <section className="min-w-0 px-4 py-5 sm:px-6 sm:py-7">
-              <p className="mb-4 text-[11px] font-semibold tracking-[0.1em] text-blue-700">
+              <p className="mb-4 text-[11px] font-semibold tracking-[0.1em] text-blue-600">
                 THE BRIEF
               </p>
               <p className="text-sm leading-6 text-gray-700">
