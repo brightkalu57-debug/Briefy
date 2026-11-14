@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
             );
           });
 
-          for (const link of allLinks) {
+          for (const link of new Set(allLinks)) {
             if (new URL(link).hostname !== domainName) continue;
             const response = await page.goto(link, {
               waitUntil: "networkidle2",
@@ -158,6 +158,8 @@ export async function POST(req: NextRequest) {
 
           send({
             phase: "Gathering Pages",
+            gatheredPages: summaries.length,
+            totalPages: potentialPages.length,
           });
 
           for (const link of potentialPages) {
