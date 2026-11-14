@@ -1,5 +1,5 @@
 import "dotenv/config";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 import { NextResponse, NextRequest } from "next/server";
 import puppeteer, { type Browser, type Page } from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
@@ -243,8 +243,8 @@ export async function POST(req: NextRequest) {
 
           const safeSummary = {
             ...parsedSummary,
-            html_content: DOMPurify.sanitize(parsedSummary.html_content, {
-              ALLOWED_TAGS: [
+            html_content: sanitizeHtml(parsedSummary.html_content, {
+              allowedTags: [
                 "h1",
                 "h2",
                 "h3",
@@ -256,7 +256,9 @@ export async function POST(req: NextRequest) {
                 "em",
                 "br",
               ],
-              ALLOWED_ATTR: ["style"],
+              allowedAttributes: {
+                "*": ["style"],
+              },
             }),
           };
           send({
