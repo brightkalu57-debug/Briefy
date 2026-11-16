@@ -31,7 +31,7 @@ const Header = () => {
         <div className="flex gap-2 text-indigo-800 ">
           Menu{" "}
           <img
-            className="w-[15px]"
+            className="w-[8px] h-auto fit"
             src="../dropdown.png"
             alt="dropdown icon "
             onClick={() =>
