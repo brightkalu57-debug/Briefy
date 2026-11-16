@@ -53,7 +53,7 @@ export default function SummarizePage() {
         fastPace: number,
       ) => {
         setPhase(
-          `${data?.phase} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
+          `${data?.phase !== "Summary Completed"} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
         );
         if (metric > progressPercentage) {
           interval = setInterval(() => {
@@ -132,7 +132,7 @@ export default function SummarizePage() {
             );
           } else if (data?.phase === "Summary Completed") {
             streamCompleted = true;
-            progressSpeedTracker(100, 100, undefined, 400);
+            progressSpeedTracker(100, 100, undefined, 300);
           }
         }
       }

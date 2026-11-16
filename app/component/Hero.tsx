@@ -17,7 +17,7 @@ export default function Hero() {
           <h1 className="text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
             Long reads
             <br />
-            <span className="font-serif font-normal italic text-orange-700">
+            <span className="font-serif font-normal italic text-gray-500">
               made brief.
             </span>
           </h1>
