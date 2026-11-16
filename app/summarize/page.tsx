@@ -53,7 +53,7 @@ export default function SummarizePage() {
         fastPace: number,
       ) => {
         setPhase(
-          `${data?.phase !== "Summary Completed"} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
+          `${data?.phase !== "Summary Completed" && data?.phase} ${data?.phase === "Gathering Pages" ? `${data?.gatheredPages || 0}/${data?.totalPages || 6}` : ""}`,
         );
         if (metric > progressPercentage) {
           interval = setInterval(() => {
