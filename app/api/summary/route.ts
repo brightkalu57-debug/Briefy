@@ -202,8 +202,8 @@ export async function POST(req: NextRequest) {
           Review these images generated from the visual screenshots of all its potential subpages, 
           and compile them into one high-level, total website summary, and desplay them in HTML 
           format and use style="" instead of class attribute, so design it how ever, strictly 
-          using this colors pallets of different shade and opacity, orange, black, lightblue, purple. 
-          Also  no background color, and orange and purple should be used in little things. Main 
+          using this colors pallets of different shade and opacity, orange, black, lightblue, purple 
+          and indigo. Also  no background color, and orange should be used in little things. Main 
           color should be lightblue, black  Style text size, marginal space and padding considering 
           a containerof maxed width 440px, use font bold where its needed and also make sure its  
           aesthetic. Use font  Geist, Geist_Mono of different width you can even use some italic when 
